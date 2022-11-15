@@ -304,5 +304,5 @@ spec:
  Plusieurs Design Patterns:
  * `Sidecar` : Etendre les fonctionnalités du container principal (ex: envoyer des logs à un système externe)
  * `Adapter` : Transformer / modifier la sortie du container principal
- * `Ambassador` : Proxy vers un ssytème externe (ex: un service qui contient un token API)
+ * `Ambassador` : Proxy vers un sytème externe (ex: un service qui contient un token API ou une connexion à une DB)
  
