@@ -285,3 +285,24 @@ Différents type d'affinity :
  * `requiredDuringSchedulingIgnoredDuringExecution`
  * `preferredDuringSchedulingIgnoredDuringExecution`
  * `requiredDuringSchedulingRequiredDuringExecution` (pas encore implémenté en v1.24)
+
+## Multi-Container PODs
+
+Partage le meme espace réseau (localhost), meme filesystem
+
+```
+spec:
+ containers:
+  - name: my-application
+    image: my-application:v1.0
+    ports:
+     - containerPort: 8080
+  - name: log-agent
+    image: log-agent:v2.0.0
+ ```
+ 
+ Plusieurs Design Patterns:
+ * `Sidecar` : Etendre les fonctionnalités du container principal (ex: envoyer des logs à un système externe)
+ * `Adapter` : Transformer / modifier la sortie du container principal
+ * `Ambassador` : Proxy vers un ssytème externe (ex: un service qui contient un token API)
+ 
