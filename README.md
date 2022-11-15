@@ -9,8 +9,8 @@ Installler Kubernetes revient à installer les composants suivants :
 * container-runtaime: docker, rkt, cry-io
 * kubelet: agent qui tourne sur chaque noeud du cluster, s'assure que les containers tournent
 
-Un *master* node embarque kube-apiserver, etcd, controller, scheduler
-Un *worker* node embarque kubelet + container runtime (docker)
+* Un *master* node embarque kube-apiserver, etcd, controller, scheduler
+* Un *worker* node embarque kubelet + container runtime (docker)
 
 ## Common
 ```
