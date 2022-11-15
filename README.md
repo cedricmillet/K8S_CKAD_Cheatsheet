@@ -276,7 +276,7 @@ spec:
     nodeSelectorTerms:
     - matchExpressions:
       - key: size
-        operator: In
+        operator: In     # d'autres operateurs du type "NotIn" ou "Exists"
         values:
         - Large
  ```
