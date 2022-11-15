@@ -306,3 +306,5 @@ spec:
  * `Adapter` : Transformer / modifier la sortie du container principal
  * `Ambassador` : Proxy vers un sytème externe (ex: un service qui contient un token API ou une connexion à une DB)
  
+ 
+ ## Readiness Probe / Liveness Probe
