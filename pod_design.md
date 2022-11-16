@@ -19,7 +19,7 @@ metadata:
     author: John Doe
 ```
 
-```
+```yaml
 # single label selection
 kubectl get pods --selector app=MyApplication
 # multiple labels selection
