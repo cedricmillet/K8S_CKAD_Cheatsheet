@@ -31,18 +31,21 @@ kubectl get pod --selector env=prod,bu=finance,tier=frontend
 
 Lorsque l'on lance un **Deployment** un **Rollout** est créé, et versionnée avec une nouvelle révision. 
 
-```
+```yaml
 # Afficher le status d'un déploiement
 kubectl rollout status deployment/<deployment-name>
 
 # Afficher l'historique (les révisions) d'un déploiement
 kubectl rollout history deployment/<deployment-name>
 
+# Afficher la stratégie de déploiement
+kubectl describe deployment <deployment-name> | grep StrategyType:
 ```
 
 Deux stratégies de déploiement :
-* **Recreate** Détruire tous les pods, puis lancer les pods de la nouvelle version => engendre une période d'indisponibilité
+* **Recreate** Détruire tous les pods, puis lancer tous les pods de la nouvelle version => engendre une période d'indisponibilité
 * **Rolling Update** Détruire et relancer chacun des pods un à un, les uns après les autres
+
 
 Montée de version d'un déploiement:
 * Editer le `deployment.yaml`, puis `kubectl apply -f deployment.yaml`
