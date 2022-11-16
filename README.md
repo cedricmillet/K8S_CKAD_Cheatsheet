@@ -307,4 +307,21 @@ spec:
  * `Ambassador` : Proxy vers un sytème externe (ex: un service qui contient un token API ou une connexion à une DB)
  
  
- ## Readiness Probe / Liveness Probe
+ ## Readiness Probe / Liveness Probe / Stratup Probe
+
+* **Readiness** est utilisé pour detecter à partir de quand un container est prêt à accepter le traffic.
+* **Liveness** est utilisé pour detecter quand redémarrer un container (healthcheck) 
+* **Startup** est utilisé pour detecter quand un container est demarré, bloquant Liveness et Readiness
+
+```
+spec:
+  containers:
+  - name: liveness
+    image: <image>
+    livenessProbe:
+      httpGet:
+        path: /healthz
+        port: 8080
+      initialDelaySeconds: 3
+      periodSeconds: 3
+```
