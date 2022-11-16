@@ -62,8 +62,29 @@ Montée de version d'un déploiement:
 Les **ReplicatSet** s'assurent qu'une flotte de **pods** tournent **constamment** (pour exposer un serveur web par exemple).
 Contraitement aux **ReplicaSet**, les **Jobs** sont des workloads destinés à exécuter une tâches à travers 1/plrs **pods** et à se **terminer** une fois la tache accomplie.
 
+job.yaml
+```yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: <jobname>
+spec:
+  comletions: 3 # nbre de fois que le job doit réussir
+  parallelism: 3 # nbre de jobs paralleles autorisés (1 pour les exec sequentiellement)
+  template:
+    spec:
+      containers:
+        - name: math-add
+          image: ubuntu
+          command: ['expr', '3', '+', '2']
+      restartPolicy: Never
 ```
 
+```
+kubectl create -f job.yaml
+kubectl get jobs # will create required pods
+kubectl get pods
+kubectl delete jon <jobname> # will delete pods
 ```
 
 
