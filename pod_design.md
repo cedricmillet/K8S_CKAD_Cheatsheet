@@ -62,8 +62,8 @@ Montée de version d'un déploiement:
 Les **ReplicatSet** s'assurent qu'une flotte de **pods** tournent **constamment** (pour exposer un serveur web par exemple).
 Contraitement aux **ReplicaSet**, les **Jobs** sont des workloads destinés à exécuter une tâches à travers 1/plrs **pods** et à se **terminer** une fois la tache accomplie.
 
-job.yaml
 ```yaml
+# job.yaml
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -90,8 +90,8 @@ kubectl delete jon <jobname> # will delete pods
 
 ## Cronjobs
 
-cronjob.yaml
 ```yaml
+# cronjob.yaml
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
