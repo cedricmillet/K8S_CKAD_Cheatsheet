@@ -59,5 +59,13 @@ Montée de version d'un déploiement:
 
 ## Jobs
 
+Les **ReplicatSet** s'assurent qu'une flotte de **pods** tournent **constamment** (pour exposer un serveur web par exemple).
+Contraitement aux **ReplicaSet**, les **Jobs** sont des workloads destinés à exécuter une tâches à travers 1/plrs **pods** et à se **terminer** une fois la tache accomplie.
+
+```
+
+```
+
+
 ## Cronjobs
 
