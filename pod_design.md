@@ -38,6 +38,12 @@ kubectl rollout status deployment/<deployment-name>
 # Afficher l'historique (les révisions) d'un déploiement
 kubectl rollout history deployment/<deployment-name>
 
+# Rollback deployment
+kubectl rollout undo deployment/<deployment-name>
+
+# Afficher la revision#1
+kubectl rollout history deployment <deployument-name> --revision=1
+
 # Afficher la stratégie de déploiement
 kubectl describe deployment <deployment-name> | grep StrategyType:
 ```
@@ -49,7 +55,7 @@ Deux stratégies de déploiement :
 
 Montée de version d'un déploiement:
 * Editer le `deployment.yaml`, puis `kubectl apply -f deployment.yaml`
-* ou `kubectl set image deployment/<deployment-name> nginx=nginx:v2.0.0` => engendre une différence de config entre le .yaml et ce qui tourne
+* ou `kubectl set image deployment/<deployment-name> nginx=nginx:v2.0.0 [--record]` => engendre une différence de config entre le .yaml et ce qui tourne
 
 ## Jobs
 
