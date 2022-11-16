@@ -20,7 +20,10 @@ metadata:
 ```
 
 ```
+# single label selection
 kubectl get pods --selector app=MyApplication
+# multiple labels selection
+kubectl get pod --selector env=prod,bu=finance,tier=frontend
 ```
 
 
