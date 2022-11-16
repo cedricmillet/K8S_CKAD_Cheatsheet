@@ -313,6 +313,7 @@ spec:
 * **Liveness** est utilisé pour detecter quand redémarrer un container (healthcheck) 
 * **Startup** est utilisé pour detecter quand un container est demarré, bloquant Liveness et Readiness
 
+pod.yaml
 ```
 spec:
   containers:
