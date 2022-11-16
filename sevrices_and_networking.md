@@ -32,3 +32,19 @@ kubectl get services
 curl http://<ip-of-node>:3008
 ```
 
+### ClusterIP
+
+```yaml
+# service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: <service-name>
+spec:
+  type: ClusterIP     # Default service type
+  ports:
+  - targetPort: 80    # port du pod
+    port: 80          # port du service
+  selector:           # identifier le/les pod(s) à mapper via ses labels
+    app: my-application
+```
