@@ -90,3 +90,29 @@ kubectl delete jon <jobname> # will delete pods
 
 ## Cronjobs
 
+cronjob.yaml
+```yaml
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: <cronjobname>
+spec:                       # cronjob spec
+  schedule: "*/1 * * * *"
+  jobTemplate:
+    spec:                   # job spec
+      comletions: 3 # nbre de fois que le job doit réussir
+      parallelism: 3 # nbre de jobs paralleles autorisés (1 pour les exec sequentiellement)
+      template:
+        spec:               # pod spec
+          containers:
+            - name: math-add
+              image: ubuntu
+              command: ['expr', '3', '+', '2']
+          restartPolicy: Never
+```
+
+
+```
+kubectl create -f cronjob.yaml
+kubectl get cronjob
+```
