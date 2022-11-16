@@ -330,3 +330,10 @@ spec:
       initialDelaySeconds: 3
       periodSeconds: 3
 ```
+
+## Init containers
+
+Dans un **Multi-container pod** on s'attend à ce que chaque container reste en vie tant que le pod tourne. Lorsque l'on souhaite créer un process avec une durée de vie limitée (par exemple pull le code d'un repository) on utilise l'instruction **Init Containers**. Les process de la section __initContainers__ sont lancés dès le démarrage du pod, une fois tous achevés (avec un code retour 0) les containers du pod sont lancés.
+
+
+
