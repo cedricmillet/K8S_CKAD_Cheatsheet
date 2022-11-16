@@ -1,3 +1,5 @@
+![ckad](ckad.png)
+
 Un *Cluster* est constitué de *Nodes* (aka. minion).
 Un *Node* 
 
