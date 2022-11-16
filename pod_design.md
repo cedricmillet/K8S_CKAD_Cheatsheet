@@ -7,7 +7,7 @@
 * Les **annotations** sont utilisées à titre descriptif seulement
 * Les **selectors** permettent de matcher via différents champs tels que les **labels**
 
-```
+```yaml
 kind: Pod
 metadata:
   name: <podname>
@@ -27,8 +27,26 @@ kubectl get pod --selector env=prod,bu=finance,tier=frontend
 ```
 
 
-
 ## Rolling update & Rollbacks in Deployments
+
+Lorsque l'on lance un **Deployment** un **Rollout** est créé, et versionnée avec une nouvelle révision. 
+
+```
+# Afficher le status d'un déploiement
+kubectl rollout status deployment/<deployment-name>
+
+# Afficher l'historique (les révisions) d'un déploiement
+kubectl rollout history deployment/<deployment-name>
+
+```
+
+Deux stratégies de déploiement :
+* **Recreate** Détruire tous les pods, puis lancer les pods de la nouvelle version => engendre une période d'indisponibilité
+* **Rolling Update** Détruire et relancer chacun des pods un à un, les uns après les autres
+
+Montée de version d'un déploiement:
+* Editer le `deployment.yaml`, puis `kubectl apply -f deployment.yaml`
+* ou `kubectl set image deployment/<deployment-name> nginx=nginx:v2.0.0` => engendre une différence de config entre le .yaml et ce qui tourne
 
 ## Jobs
 
