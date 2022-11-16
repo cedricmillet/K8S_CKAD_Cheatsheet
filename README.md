@@ -342,3 +342,21 @@ Dans un **Multi-container pod** on s'attend à ce que chaque container reste en 
 
 ### Multi-container pod
 `kubectl logs -f <podname> <containername>`
+
+
+## Monitoring
+
+K8S n'embarque pas de solution native pour le monitoring (d'autre solutions existes: MetricServer, Prometheus, ElasticStack, DataDog...).
+
+**Metrics Server** est un outil de monitoring ___In Memory___, lance un agent sur chaque node (kubelet) qui integre cAdvisor (chargé de prélever des relevés et de les exposer à kubelet pour finalement atterir sur Metrics Server).
+
+```
+# installation
+git clone https://github.com/kubernetes-incubator/metrics-server.git
+kubectl create -f deploy/1.8+/
+
+# view
+kubectl top node
+kubectl top pod
+```
+
