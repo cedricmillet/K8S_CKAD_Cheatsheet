@@ -100,6 +100,7 @@ spec:                       # cronjob spec
   schedule: "*/1 * * * *"
   jobTemplate:
     spec:                   # job spec
+      backoffLimit: 15 # maximum job retry
       comletions: 3 # nbre de fois que le job doit réussir
       parallelism: 3 # nbre de jobs paralleles autorisés (1 pour les exec sequentiellement)
       template:
