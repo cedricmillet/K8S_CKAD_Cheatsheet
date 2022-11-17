@@ -51,16 +51,60 @@ spec:
 
 ## Ingress Networking
 
-* Un **Ingress** est un point d'entrée du cluster vers différents **Services**.
-
+* Un **Ingress** est un point d'entrée du cluster qui redirige un trafic vers différents **Services** éventuellement à travers des règles de redirection.
 On distingue les **Ingress Controller** et les **Ingress Resources**:
-* Kubernetes n'intègre aucun **Ingress Controller** par défaut (Traefik, HA Proxy, NGINX...), il faut l'installer manuellement (sous la forme d'un **Deployment** par exemple (image: quay.io/nginx-ingressoui-controller) + Service NodePort + ConfigMap + ServiceAccount.
-* **Ingress Resources** est un ensemble de règles / configurations appliquées sur le l'**Ingress Controller** : règles de redirections...
+* Kubernetes n'intègre aucun **Ingress Controller** par défaut (Traefik, HA Proxy, NGINX...), il faut l'installer manuellement (sous la forme d'un **Deployment** par exemple (image: quay.io/nginx-ingressoui-controller) + Service NodePort + ConfigMap + ServiceAccount).
+* **Ingress Resources** est un ensemble de règles / configurations appliquées sur l'**Ingress Controller** : règles de redirections...
 
 
+Create an **Ingress Resource**
 ```yaml
 #ingress-wear.yaml
-apiVersion: extensikons/v1beta1
+apiVersion: extensions/v1beta1
 kind: Ingress
+metadata:
+  name: ingress-wear
+spec:
+  backend:            # vers quel service rediriger le trafic ?
+    serviceName: wear-service
+    servicePort: 80
+```
 
+* **Ingress Resource** avec filtrage par **URL**
+```yaml
+#ingress-wear.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-wear-watch
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /wear
+        pathType: Prefix
+        backend:
+          service:
+            name: wear-service
+            port:
+              numner: 80
+      - path: /watch
+        pathType: Prefix
+        backend:
+          service:
+            name: watch-service
+            port:
+              numner: 80
+```
+
+* **Ingress Resource** avec filtrage par **nom de domaine**
+```
+# idem avec le champ 'host:' pour chaque `spec.rules[]`
+```
+
+```
+kubectl get ingress
+kubectl create -f ingress-wear.yaml
+kubectl create ingress <ingress-name> --rule="hostname/path=service:port"
+kubectl describe ingress <ingress-name>
 ```
