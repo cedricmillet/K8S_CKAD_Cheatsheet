@@ -52,9 +52,10 @@ spec:
 ## Ingress Networking
 
 * Un **Ingress** est un point d'entrée du cluster qui redirige un trafic vers différents **Services** éventuellement à travers des règles de redirection.
+
 On distingue les **Ingress Controller** et les **Ingress Resources**:
 * Kubernetes n'intègre aucun **Ingress Controller** par défaut (Traefik, HA Proxy, NGINX...), il faut l'installer manuellement (sous la forme d'un **Deployment** par exemple (image: quay.io/nginx-ingressoui-controller) + Service NodePort + ConfigMap + ServiceAccount).
-* **Ingress Resources** est un ensemble de règles / configurations appliquées sur l'**Ingress Controller** : règles de redirections...
+* **Ingress Resources** est un ensemble de configurations appliquées sur l'**Ingress Controller** (règles de redirections...)
 
 
 Create an **Ingress Resource**
