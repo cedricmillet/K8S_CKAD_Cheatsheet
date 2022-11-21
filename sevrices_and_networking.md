@@ -125,11 +125,15 @@ k create serviceaccount ingress-serviceaccount -n ingress-space
 
 # TODO: Creation role + rolebinding
 
-# Deploy nginx
+# Deployer nginx
 k create -f deployment.yaml
 
-# Exposer deployment with new service
+# Exposer le Deployment avec un Service
 k create -f service.yaml
+
+# Ajouter un ingress resource
+k create -f ingress-resource.yaml
+
 ```
 
 deployment.yaml
@@ -197,4 +201,36 @@ spec:
     name: https
   selector:
     name: nginx-ingress
+```
+
+
+ingress-resource.yaml
+```yaml
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-wear-watch
+  namespace: app-space
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /wear
+        pathType: Prefix
+        backend:
+          service:
+           name: wear-service
+           port: 
+            number: 8080
+      - path: /watch
+        pathType: Prefix
+        backend:
+          service:
+           name: video-service
+           port:
+            number: 8080
 ```
