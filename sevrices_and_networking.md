@@ -127,6 +127,9 @@ k create serviceaccount ingress-serviceaccount -n ingress-space
 
 # Deploy nginx
 k create -f deployment.yaml
+
+# Exposer deployment with new service
+k create -f service.yaml
 ```
 
 deployment.yaml
@@ -169,4 +172,29 @@ spec:
               containerPort: 80
             - name: https
               containerPort: 443
+```
+
+
+service.yaml
+```yaml
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ingress
+  namespace: ingress-space
+spec:
+  type: NodePort
+  ports:
+  - port: 80
+    targetPort: 80
+    protocol: TCP
+    nodePort: 30080
+    name: http
+  - port: 443
+    targetPort: 443
+    protocol: TCP
+    name: https
+  selector:
+    name: nginx-ingress
 ```
