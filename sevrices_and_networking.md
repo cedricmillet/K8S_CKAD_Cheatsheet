@@ -109,3 +109,64 @@ kubectl create -f ingress-wear.yaml
 kubectl create ingress <ingress-name> --rule="hostname/path=service:port"
 kubectl describe ingress <ingress-name>
 ```
+
+
+## Process mise en place ingress controller nginx
+
+```
+# Creation du namespace
+k create ns ingress-space
+
+# Creation donfigmap
+k create configmap nginx-configuration -n ingress-space
+
+# Creation compte de service
+k create serviceaccount ingress-serviceaccount -n ingress-space
+
+# TODO: Creation role + rolebinding
+
+# Deploy nginx
+k create -f deployment.yaml
+```
+
+deployment.yaml
+```yaml
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ingress-controller
+  namespace: ingress-space
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: nginx-ingress
+  template:
+    metadata:
+      labels:
+        name: nginx-ingress
+    spec:
+      serviceAccountName: ingress-serviceaccount
+      containers:
+        - name: nginx-ingress-controller
+          image: quay.io/kubernetes-ingress-controller/nginx-ingress-controller:0.21.0
+          args:
+            - /nginx-ingress-controller
+            - --configmap=$(POD_NAMESPACE)/nginx-configuration
+            - --default-backend-service=app-space/default-http-backend
+          env:
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          ports:
+            - name: http
+              containerPort: 80
+            - name: https
+              containerPort: 443
+```
