@@ -234,3 +234,9 @@ spec:
            port:
             number: 8080
 ```
+
+
+## Network Policies
+
+* Chaque **node**, **pod**, **service** a sa propre adresse IP.
+* Par défaut la règle "All Allow" est appliquée, tout le monde peut joindre tout le monde (pod, service) au sein du cluster
