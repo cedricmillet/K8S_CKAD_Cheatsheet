@@ -240,3 +240,27 @@ spec:
 
 * Chaque **node**, **pod**, **service** a sa propre adresse IP.
 * Par défaut la règle "All Allow" est appliquée, tout le monde peut joindre tout le monde (pod, service) au sein du cluster
+* Un **Network Policy** appliqué sur un **pod** permet d'autoriser des flux entrants (d'un pod vers un port d'entrée) et sortant
+
+```yaml
+network-policy.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: db-policy
+spec:
+  podSelector:
+    matchLabels:
+      role: db
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          name: api-pod
+    ports:
+    - protocol: TCP
+      port: 3306
+
+```
