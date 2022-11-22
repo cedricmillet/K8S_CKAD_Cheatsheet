@@ -243,24 +243,48 @@ spec:
 * Un **Network Policy** appliqué sur un **pod** permet d'autoriser des flux entrants (d'un pod vers un port d'entrée) et sortant
 
 ```yaml
-network-policy.yaml
+# network-policy.yaml
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: db-policy
+  namespace: production
 spec:
+  # Selectionner le pod sur lequel appliquer ce NetworkPolicy
   podSelector:
     matchLabels:
       role: db
+  # Selectionner les règles à appliquer
   policyTypes:
   - Ingress
+  - Egress
+  # ================ INGRESS
   ingress:
   - from:
+    # Règle à 1 seul selecteur (1 pod du namespace courant)
     - podSelector:
         matchLabels:
           name: api-pod
+    # Règle à 2 selecteurs (1 pod d'un namespace particulier)
+    - podSelector:
+        matchLabels:
+          name: api-pod
+      namespaceSelector:
+        matchLabels:
+          name: prod
+    # Règle à 1 selecteur (adresse ip source)
+    - ipBlock:
+      cidr: 192.168.5.10/32
+    # Liste des ports entrants accessibles par ces règles
     ports:
     - protocol: TCP
       port: 3306
-
+  # ================ EGRESS
+  egress:
+  - to:
+    - ipBlock:
+      cidr: 192.168.5.10/32
+    ports:
+    - protocol: TCP
+      port: 80
 ```
