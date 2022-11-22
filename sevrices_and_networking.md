@@ -288,3 +288,8 @@ spec:
     - protocol: TCP
       port: 80
 ```
+
+
+```
+k get netpol -A
+```
