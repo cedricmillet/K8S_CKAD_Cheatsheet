@@ -29,7 +29,9 @@ spec:
 
 ## Persistent Volumes
 
-Afin de ne pas avoir à préciser le volume sur chaque **pod** que l'on créé on utilise **Persistent Volume**
+* Afin de ne pas avoir à préciser le volume sur chaque **pod** on utilise des **Persistent Volume**
+* Les **Persistent Volume** sont créés par des Administrateurs K8S
+
 
 persistent-volume.yaml
 ```yaml
@@ -51,3 +53,33 @@ spec:
 kubectl create -f persistent-volume.yaml
 kubectl get persistenvolume
 ```
+
+## Persistent Volume Claim
+
+* Les **Persistent Volume Claim** sont créés par des Utilisateurs K8S
+* Chaque **Persistent Volume Claim** est associé à un seul et unique **Persistent Volume**
+
+Que se passe t-il lorsqu'un PVC est supprimé ?
+* **Retain**: le PV reste en attente d'être manuellement supprimé par un administrateur
+* **Delete**: le PV est supprimé lorsque le PVC est supprimé
+* **Recycle**: le PV est vidé et ensuite disponiuble par un autre PVC
+
+pvc-definition.yaml
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-claim
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Mi
+```
+
+```
+kubectl get persistentvolumeclaim
+kubectl delete persistenvolumeclaim <my-volume>
+```
+
