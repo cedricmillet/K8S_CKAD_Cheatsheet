@@ -47,6 +47,7 @@ spec:
     storage: 1Gi
   hostPath:
     path: /tmp/data
+  persistentVolumeReclaimPolicy: Retain
 ```
 
 ```
