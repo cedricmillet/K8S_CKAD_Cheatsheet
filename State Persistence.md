@@ -69,7 +69,7 @@ pvc-definition.yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-claim
+  name: pvc-myclaim
 spec:
   accessModes:
     - ReadWriteOnce
@@ -83,3 +83,15 @@ kubectl get persistentvolumeclaim
 kubectl delete persistenvolumeclaim <my-volume>
 ```
 
+
+A ajouter danss la section **POD** d'un **ReplicatSet** ou **Deployment**.
+
+````yaml
+spec:
+  containers:
+    - iamge: nginx
+  volumes:
+    - name: mypod
+      persistentVolumeClaim:
+        claimName: pvc-myclaim
+```
